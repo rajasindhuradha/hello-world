@@ -1,0 +1,15 @@
+pipeline {
+  agent any
+  stages {
+    stage ('Checking Operating System') {
+      steps {
+        sh 'cat /etc/os-release'
+      }
+    }
+    stage ('Checking Date') {
+      steps {
+        sh 'date'
+      }
+    }
+  }
+}
