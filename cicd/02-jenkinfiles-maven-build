@@ -1,0 +1,9 @@
+pipeline {
+  agent anystages {
+    stage ('Build') {
+      steps {
+        sh 'mvn clean package'
+      }
+    }
+  }
+}
