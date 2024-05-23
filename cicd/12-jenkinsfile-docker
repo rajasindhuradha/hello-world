@@ -41,7 +41,7 @@ pipeline {
       }
       steps {
         script {
-          sshCommand remote: 'ubuntu@20.193.155.41', credentialsId: "ssh-pass-credential", command: "docker pull ${DOCKER_USERNAME}/hello-world:1.${BUILD_NUMBER}"
+          sshCommand remote: 'ubuntu@20.193.155.41', credentialsId: "ssh-pass-credential", command: "docker pull rajasindhuradha/hello-world:1.${BUILD_NUMBER}"
         }
       }
     }
