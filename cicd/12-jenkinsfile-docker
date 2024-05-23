@@ -41,7 +41,7 @@ pipeline {
       }
       steps {
         script {
-          deploy adapters: [tomcat9(credentialsId: 'tomcat-credential', path: '', url: 'http://20.193.155.41:8080')], contextPath: "${env.CONTEXT_PATH}", onFailure: false, war: 'target/hello-world-*.war'
+          sshCommand remote: 'ubuntu@20.193.155.41', credentialsId: "ssh-pass-credential", command: "docker pull ${DOCKER_USERNAME}/hello-world:1.${BUILD_NUMBER}"
         }
       }
     }
