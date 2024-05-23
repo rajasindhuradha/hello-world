@@ -11,6 +11,7 @@ pipeline {
   }
   environment {
     CONTEXT_PATH = "/helloworld"
+    CREDENTIAL_ID = "docker-credential"
   }
   stages {
     stage ('Build') {
@@ -21,6 +22,17 @@ pipeline {
     stage ('Docker Build') {
       steps {
         sh "docker build -t hello-world:1.${BUILD_NUMBER} ."
+      }
+    }
+    stage ('Docker Push') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: "${CREDENTIAL_ID}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+          sh """
+            docker login -u ${usernameVariable} -p ${passwordVariable}
+            docket tag hello-world:1.${BUILD_NUMBER} ${usernameVariable}/hello-world:1.${BUILD_NUMBER}
+            docker push ${usernameVariable}/hello-world:1.${BUILD_NUMBER}
+          """
+        }
       }
     }
     stage ('Deploy to Dev') {
