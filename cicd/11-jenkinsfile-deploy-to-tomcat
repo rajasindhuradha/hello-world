@@ -6,6 +6,9 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '10'))
     timeout(time: 1, unit: 'HOURS')
   }
+  parameters {
+    choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Choose Environment')
+  }
   stages {
     stage ('Build') {
       steps {
