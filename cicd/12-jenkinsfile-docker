@@ -49,7 +49,7 @@ pipeline {
             remote.user = "${SSH_USERNAME}"
             remote.password = "${SSH_PASSWORD}"
             remote.allowAnyHosts = true
-            sshCommand remote: remote, command: "docker pull rajasindhuradha/hello-world:1.${BUILD_NUMBER}"
+            sshCommand remote: remote, command: "docker rm -f hello-world || true && docker run -d --name hello-world -p 8080:8080 rajasindhuradha/hello-world:1.${BUILD_NUMBER}"
           }
         }
       }
