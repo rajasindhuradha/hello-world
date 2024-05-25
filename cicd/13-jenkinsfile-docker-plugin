@@ -14,6 +14,11 @@ pipeline {
     DOCKER_CREDENTIAL_ID = "docker-credential"
     SSH_CREDENTIAL_ID = "ssh-pass-credential"
     DOCKER_USERNAME = "rajasindhuradha"
+    IMAGE_NAME = "hello-world"
+    IMAGE_TAG = "1.${BUILD_NUMBER}"
+    CONTAINER_NAME = "hello-world"
+    HOST_PORT = "8080"
+    CONTAINER_PORT = "8080"
   }
   stages {
     stage ('Build') {
@@ -24,7 +29,7 @@ pipeline {
     stage ('Docker Build') {
       steps {
         script {
-          docker.build("${DOCKER_USERNAME}/hello-world:${BUILD_NUMBER}")
+          docker.build("${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}")
         }
         
       }
@@ -33,7 +38,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com', "${DOCKER_CREDENTIAL_ID}") {
-            docker.image("${DOCKER_USERNAME}/hello-world:${BUILD_NUMBER}").push()
+            docker.image("${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}").push()
           }
         }
       }
@@ -51,7 +56,7 @@ pipeline {
             remote.user = "${SSH_USERNAME}"
             remote.password = "${SSH_PASSWORD}"
             remote.allowAnyHosts = true
-            sshCommand remote: remote, command: "docker rm -f hello-world || true && docker run -d --name hello-world -p 8080:8080 rajasindhuradha/hello-world:1.${BUILD_NUMBER}"
+            sshCommand remote: remote, command: "docker rm -f ${CONTAINER_NAME} || true && docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT} ${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}"
           }
         }
       }
@@ -69,7 +74,7 @@ pipeline {
             remote.user = "${SSH_USERNAME}"
             remote.password = "${SSH_PASSWORD}"
             remote.allowAnyHosts = true
-            sshCommand remote: remote, command: "docker rm -f hello-world || true && docker run -d --name hello-world -p 8080:8080 rajasindhuradha/hello-world:1.${BUILD_NUMBER}"
+            sshCommand remote: remote, command: "docker rm -f ${CONTAINER_NAME} || true && docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT} ${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}"
           }
         }
       }
@@ -87,7 +92,7 @@ pipeline {
             remote.user = "${SSH_USERNAME}"
             remote.password = "${SSH_PASSWORD}"
             remote.allowAnyHosts = true
-            sshCommand remote: remote, command: "docker rm -f hello-world || true && docker run -d --name hello-world -p 8080:8080 rajasindhuradha/hello-world:1.${BUILD_NUMBER}"
+            sshCommand remote: remote, command: "docker rm -f ${CONTAINER_NAME} || true && docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT} ${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}"
           }
         }
       }
