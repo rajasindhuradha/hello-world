@@ -12,7 +12,7 @@ pipeline {
   environment {
     DOCKER_CREDENTIAL_ID = "jfrog-credential"
     SSH_CREDENTIAL_ID = "ssh-pass-credential"
-    DOCKER_REGISTRY = "rajasindhu.jfrog.io"
+    DOCKER_REGISTRY = "https://rajasindhu.jfrog.io"
     DOCKER_REPOSITORY = "docker-trial"
     IMAGE_NAME = "hello-world-java"
     IMAGE_TAG = "1.${BUILD_NUMBER}"
