@@ -12,7 +12,7 @@ pipeline {
   environment {
     DOCKER_CREDENTIAL_ID = "jfrog-credential"
     SSH_CREDENTIAL_ID = "ssh-pass-credential"
-    DOCKER_REGISTRY = "https://rajasindhu.jfrog.io"
+    DOCKER_REGISTRY = "rajasindhu.jfrog.io"
     DOCKER_REPOSITORY = "docker-trial"
     IMAGE_NAME = "hello-world-java"
     IMAGE_TAG = "1.${BUILD_NUMBER}"
@@ -37,7 +37,7 @@ pipeline {
     stage ('Docker Push') {
       steps {
         script {
-          docker.withRegistry("${DOCKER_REGISTRY}", "${DOCKER_CREDENTIAL_ID}") {
+          docker.withRegistry("https://${DOCKER_REGISTRY}", "${DOCKER_CREDENTIAL_ID}") {
             docker.image("${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}").push()
           }
         }
