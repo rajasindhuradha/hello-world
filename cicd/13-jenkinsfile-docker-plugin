@@ -13,7 +13,7 @@ pipeline {
     DOCKER_CREDENTIAL_ID = "docker-credential"
     SSH_CREDENTIAL_ID = "ssh-pass-credential"
     DOCKER_USERNAME = "rajasindhuradha"
-    IMAGE_NAME = "hello-world"
+    IMAGE_NAME = "hello-world -java"
     IMAGE_TAG = "1.${BUILD_NUMBER}"
     CONTAINER_NAME = "hello-world-java"
     HOST_PORT = "8080"
