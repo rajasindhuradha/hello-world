@@ -31,7 +31,7 @@ pipeline {
           sh """
             echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
             docker tag hello-world:1.${BUILD_NUMBER} ${DOCKER_USERNAME}/hello-world:1.${BUILD_NUMBER}
-            docker push ${DOCKER_USERNAME}/hello-world-java:1.${BUILD_NUMBER}
+            docker push ${DOCKER_USERNAME}/hello-world:1.${BUILD_NUMBER}
             docker logout
           """
         }
