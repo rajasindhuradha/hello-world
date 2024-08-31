@@ -16,7 +16,7 @@ pipeline {
     IMAGE_NAME = "hello-world -java"
     IMAGE_TAG = "1.${BUILD_NUMBER}"
     CONTAINER_NAME = "hello-world-java"
-    HOST_PORT = "8080"
+    HOST_PORT = "8082"
     CONTAINER_PORT = "8080"
   }
   stages {
@@ -51,7 +51,7 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: "${SSH_CREDENTIAL_ID}", passwordVariable: 'SSH_PASSWORD', usernameVariable: 'SSH_USERNAME')]) {
             def remote = [:]
             remote.name = 'test'
-            remote.host = '152.70.79.125'
+            remote.host = '20.197.8.45'
             remote.user = "${SSH_SERNAME}"
             remote.password = "${SSH_PASSWORD}"
             remote.allowAnyHosts = true
