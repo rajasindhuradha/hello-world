@@ -52,7 +52,7 @@ pipeline {
             def remote = [:]
             remote.name = 'test'
             remote.host = '20.197.8.45'
-            remote.user = "${SSH_SERNAME}"
+            remote.user = "${SSH_USERNAME}"
             remote.password = "${SSH_PASSWORD}"
             remote.allowAnyHosts = true
             sshCommand remote: remote, command: "docker rm -f ${CONTAINER_NAME} || true && docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT} ${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}"
